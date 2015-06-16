@@ -65,6 +65,7 @@ $catname = array(CAT_ANIME 	=> 'anime',
                  CAT_GAMES	=> 'games',
                  CAT_DVD 		=> 'dvd',
 								 CAT_HMANGA	=> 'hmanga');
+$namecat = array_flip($catname);
 
 $goodauthors = array(  14, // Bell-chan
 										   16, // Icabod

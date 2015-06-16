@@ -14,7 +14,7 @@ class PostRender extends Render
 	const LIMIT_PERPAGE   = 200;
 	const LIMIT_SEARCH		= 1000;
 	
-	protected $category = null;
+	protected $category_id = null;
 	protected $author = null;
 	protected $hidden = true;
 	
@@ -29,10 +29,13 @@ class PostRender extends Render
 		 * Category
 		 */
 		if (isset($_REQUEST['cat']))
-			$this->category = strtolower(trim($_REQUEST['cat']));
-		if (!is_null($this->category) && in_array($this->category,$GLOBALS['catname']))
 		{
-			$this->link['cat'] = $this->category;
+			$cat = strtolower(trim($_REQUEST['cat']));
+			if (isset($GLOBALS['namecat'][$cat]))
+			{
+				$this->link['cat'] = $cat;
+				$this->category_id = $GLOBALS['namecat'][$cat];
+			}
 		}
 		/*
 		 * Hidden
@@ -76,9 +79,8 @@ class PostRender extends Render
 			}
 		}
 		// Category
-		$namecat = array_flip($GLOBALS['catname']);
-		if (in_array($this->category,$GLOBALS['catname']))
-			$where[] = ' ("postcat"."catid" = '.$namecat[$this->category].') ';
+		if ($this->category_id)
+			$where[] = ' ("postcat"."catid" = '.$this->category_id.') ';
 		else
 			$where[] = ' ("postcat"."primarycat" = 1) '; // Missing/invalid category = show all posts (with primary category)
 		if (count($where) > 0)
@@ -288,9 +290,8 @@ class ExportRender extends PostRender
 		// Category
 		if ($this->filter)
 		{
-			$namecat = array_flip($GLOBALS['catname']);
-			if (in_array($this->category,$GLOBALS['catname']))
-				$where[] = ' ("postcat"."catid" = '.$namecat[$this->category].') ';
+			if ($this->category_id)
+				$where[] = ' ("postcat"."catid" = '.$this->category_id.') ';
 			else
 				$where[] = ' ("postcat"."primarycat" = 1) '; // Missing/invalid category = show all posts (with primary category)
 		}
