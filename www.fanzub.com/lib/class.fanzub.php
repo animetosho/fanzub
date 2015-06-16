@@ -42,16 +42,6 @@ define('CAT_GAMES',6);
 define('CAT_DVD',7);
 define('CAT_HMANGA',8);
 
-$catgroup = array();
-$catgroup[CAT_ANIME] = array(1,3,4,5);
-$catgroup[CAT_DRAMA] = array(9,10);
-$catgroup[CAT_MUSIC] = array(2,13);
-$catgroup[CAT_RAWS] = array(6);
-$catgroup[CAT_HENTAI] = array(7);
-$catgroup[CAT_GAMES] = array(8);
-$catgroup[CAT_DVD] = array(11,12);
-$catgroup[CAT_HMANGA] = array(14);
-
 $groupcat = array(1 => CAT_ANIME,
                   2 => CAT_MUSIC,
                   3 => CAT_ANIME,

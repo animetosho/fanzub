@@ -30,11 +30,9 @@ class PostRender extends Render
 		 */
 		if (isset($_REQUEST['cat']))
 			$this->category = strtolower(trim($_REQUEST['cat']));
-		if (!is_null($this->category))
+		if (!is_null($this->category) && in_array($this->category,$GLOBALS['catname']))
 		{
-			$namecat = array_flip($GLOBALS['catname']);
-			if (in_array($this->category,$GLOBALS['catname']) && isset($GLOBALS['catgroup'][$namecat[$this->category]]))
-				$this->link['cat'] = $this->category;
+			$this->link['cat'] = $this->category;
 		}
 		/*
 		 * Hidden
