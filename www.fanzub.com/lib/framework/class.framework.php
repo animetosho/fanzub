@@ -539,10 +539,10 @@ abstract class Render
 			return $query;
 	}
 	
-	protected function QuerySearch($index,$sort,$order,$port = 9312,$host = 'localhost')
+	protected function QuerySearch($index,$sort,$order)
 	{
 		$sphinx = new SphinxClient();
-		$sphinx->SetServer($host,$port);
+		$sphinx->SetServer(static::$config['sphinx']['host'],static::$config['sphinx']['port']);
 		$sphinx->SetConnectTimeout(1);
 		$sphinx->SetArrayResult(true);
 		$sphinx->SetLimits(0,static::LIMIT_SEARCH);

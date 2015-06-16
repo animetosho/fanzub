@@ -7,6 +7,11 @@ database = "fanzub"
 username = "fanzub"
 password = "DATABASE_PASSWORD"
 
+[sphinx]
+; to use Unix socket, enter a pathname for the host, eg "/tmp/sphinx.sock"
+host = "localhost"
+port = 9312
+
 [url]
 ; please don't use special HTML/JS characters in the URL, as I'm too lazy to escape them everywhere...
 ;base = "http://fanzub.com/"
