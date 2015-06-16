@@ -19,10 +19,8 @@ rss = "http://fanzub.com/rss"
 mail = "info@fanzub.com"
 
 [path]
-data = "/home/fanzub/www.fanzub.com/data"
 journal = "/home/fanzub/www.fanzub.com/data/journal.db"
 template = "/home/fanzub/www.fanzub.com/template"
-lib = "/home/fanzub/www.fanzub.com/lib"
 nzb = "/home/fanzub/nzb"
 
 [cache]
