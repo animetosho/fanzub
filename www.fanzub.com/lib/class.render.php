@@ -109,10 +109,10 @@ class PostRender extends Render
 		// Category
 		$catname = 'other';
 		if (isset($GLOBALS['catname'][$row['catid']]))
-			$catname = strtolower($GLOBALS['catname'][$row['catid']]);
+			$catname = $GLOBALS['catname'][$row['catid']];
 		$result .= '<td rowspan="2"><input type="checkbox" name="id['.$row['id'].']" value="'.$row['id'].'" />'
 		          .'<a href="'.static::$config['url']['base'].'?'.(!empty($search) ? 'q='.urlencode($search).'&amp;' : '').'cat='.urlencode($catname).'">'
-							.'<img src="'.static::$config['url']['assets'].'images/cat/'.$catname.'.png" alt="'.($catname != 'dvd' ? ucfirst($catname) : strtoupper($catname)).'" />'
+							.'<img src="'.static::$config['url']['assets'].'images/cat/'.$catname.'.png" alt="'.($catname == 'dvd' ? 'DVD' : ucfirst($catname)).'" />'
 							.'</a></td>'."\n";
 		// File
 		$result .= '<td class="file"><a type="application/x-nzb" href="'.static::$config['url']['nzb'].'/'.$row['id'].'">'.SafeHTML(Post::FilenameFilter($row['subject'])).'</a></td>'."\n";
@@ -207,7 +207,7 @@ class RSSRender extends PostRender
 			$template->desc .= '<i>Subject</i>: '.SafeHTML($row['subject']);
 			$template->cat = 'other';
 			if (isset($GLOBALS['catname'][$row['catid']]))
-				$template->cat = strtolower($GLOBALS['catname'][$row['catid']]);
+				$template->cat = $GLOBALS['catname'][$row['catid']];
 			$template->cat = ($template->cat != 'dvd' ? ucfirst($template->cat) : strtoupper($template->cat));
 			$template->size = SafeHTML($row['size']);
 			$template->date = gmdate('r',$row['post_date']);
