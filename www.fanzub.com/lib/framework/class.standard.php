@@ -46,10 +46,6 @@ if (!extension_loaded('mbstring'))
 	throw new ErrorException('Multibyte String extension not found. Check PHP configuration');
 mb_internal_encoding('UTF-8');
 
-// Check for SQLite3 extension
-if (!extension_loaded('sqlite3'))
-	throw new ErrorException('SQLite3 extension not found. Check PHP configuration');
-
 // Auto-Install UncaughtExceptionHandler
 set_exception_handler('DumpException');
 
@@ -92,97 +88,100 @@ class DatabaseException extends CustomException
 }
 class SQLException extends DatabaseException {}
 
-class Journal
+if (extension_loaded('sqlite3'))
 {
-	const FATAL = 'fatal';
-	const WARNING = 'warning';
-	const NOTICE = 'notice';
-	const REPEAT_TIMEOUT = 3600;
-	const TIMEOUT = 10;
-	const SQLITE_BUSY = 5;
-
-	public static function Log($level,$class,$message,$details = '',$object = '')
+	class Journal
 	{
-		// Logging is disabled if database is set to false
-		if (isset($GLOBALS['config']['path']['journal']) && ($GLOBALS['config']['path']['journal'] === false))
-			return;
-		// Otherwise, database must exist
-		if (!isset($GLOBALS['config']['path']['journal']) || empty($GLOBALS['config']['path']['journal']))
-			throw new Exception('No journal database specified');
-		if (!file_exists($GLOBALS['config']['path']['journal']))
-			throw new Exception('Journal database not found');
-		// Init database
-		$conn = new SQLite3($GLOBALS['config']['path']['journal']);
-		// Init values
-		$values = array();
-		$values['level'] = "'".$conn->escapeString($level)."'";
-		$values['class'] = "'".$conn->escapeString($class)."'";
-		if (isset($_SERVER['REMOTE_ADDR']))
-			$values['userip'] = "'".$conn->escapeString($_SERVER['REMOTE_ADDR'])."'";
-		else
-			$values['userip'] = "''";
-		$values['message'] = "'".$conn->escapeString($message)."'";
-		$values['details'] = "'".$conn->escapeString(substr((string)$details,0,1024))."'";
-		if (isset($_SERVER['REQUEST_URI']))
-			$values['request'] = "'".$conn->escapeString($_SERVER['REQUEST_URI'])."'";
-		else
-			$values['request'] = "''";
-		if (isset($_SERVER['SCRIPT_NAME']))
-			$values['script'] = "'".$conn->escapeString($_SERVER['SCRIPT_NAME'])."'";
-		elseif (isset($_SERVER['PHP_SELF']))
-			$values['script'] = "'".$conn->escapeString($_SERVER['PHP_SELF'])."'";
-		else
-			$values['script'] = "''";
-		if (is_array($object))
-			$values['object'] = "'".$conn->escapeString(implode(',',$object))."'";
-		else
-			$values['object'] = "'".$conn->escapeString($object)."'";
-		// Check repeats
-		$query = 'SELECT id FROM journal WHERE ';
-		$where = '';
-		foreach($values as $field=>$value)
+		const FATAL = 'fatal';
+		const WARNING = 'warning';
+		const NOTICE = 'notice';
+		const REPEAT_TIMEOUT = 3600;
+		const TIMEOUT = 10;
+		const SQLITE_BUSY = 5;
+
+		public static function Log($level,$class,$message,$details = '',$object = '')
 		{
-			if (!empty($where))
-				$where .= ' AND ';
-			$where .= '('.$field.' = '.$value.')';
-		}																				
-		$where .= ' AND (date_added > '.(time()-self::REPEAT_TIMEOUT).')';
-		$rs = $conn->query($query.$where);
-		$row = $rs->fetchArray();
-		if ($row !== false)
-		{
-			// Increase repeat counter
-			$query = 'UPDATE journal ';
-			$query .= 'SET repeats = repeats + 1,date_repeat = '.time().' ';
-			$query .= 'WHERE id = '.$row['id'];
-		}
-		else
-		{
-			// Insert journal entry
-			$values['id'] = 'NULL';
-			$values['date_added'] = time();
-			$fields = implode('`,`',array_keys($values));
-			$data = implode(',',array_values($values));
-			$query = 'INSERT INTO journal (`'.$fields.'`) VALUES('.$data.')';
-		}
-		// SQLite does not always honor its own busy timeout handler
-		// So, if we get busy error we simply try again until we succeed or timeout ourselves
-		$start = time();
-		$retry = true;
-		$tries = 1;
-		while($retry)
-		{
-			try {
-				$conn->exec($query);
-				$retry = false;
-			} catch (Exception $e) {
-				// If busy then ignore it until timeout has lapsed. If not, throw exception again.
-				if ($conn->lastErrorCode() != self::SQLITE_BUSY)
-					throw $e;
-				if ((time() - $start) > self::TIMEOUT)
-					throw new DatabaseException('Unable to write to database; still locked after waiting '.self::TIMEOUT.' seconds',$conn->lastErrorCode(),$query);
-				usleep(10000 * $tries); // 10ms times number of tries
-				$tries++;
+			// Logging is disabled if database is set to false
+			if (isset($GLOBALS['config']['path']['journal']) && ($GLOBALS['config']['path']['journal'] === false))
+				return;
+			// Otherwise, database must exist
+			if (!isset($GLOBALS['config']['path']['journal']) || empty($GLOBALS['config']['path']['journal']))
+				throw new Exception('No journal database specified');
+			if (!file_exists($GLOBALS['config']['path']['journal']))
+				throw new Exception('Journal database not found');
+			// Init database
+			$conn = new SQLite3($GLOBALS['config']['path']['journal']);
+			// Init values
+			$values = array();
+			$values['level'] = "'".$conn->escapeString($level)."'";
+			$values['class'] = "'".$conn->escapeString($class)."'";
+			if (isset($_SERVER['REMOTE_ADDR']))
+				$values['userip'] = "'".$conn->escapeString($_SERVER['REMOTE_ADDR'])."'";
+			else
+				$values['userip'] = "''";
+			$values['message'] = "'".$conn->escapeString($message)."'";
+			$values['details'] = "'".$conn->escapeString(substr((string)$details,0,1024))."'";
+			if (isset($_SERVER['REQUEST_URI']))
+				$values['request'] = "'".$conn->escapeString($_SERVER['REQUEST_URI'])."'";
+			else
+				$values['request'] = "''";
+			if (isset($_SERVER['SCRIPT_NAME']))
+				$values['script'] = "'".$conn->escapeString($_SERVER['SCRIPT_NAME'])."'";
+			elseif (isset($_SERVER['PHP_SELF']))
+				$values['script'] = "'".$conn->escapeString($_SERVER['PHP_SELF'])."'";
+			else
+				$values['script'] = "''";
+			if (is_array($object))
+				$values['object'] = "'".$conn->escapeString(implode(',',$object))."'";
+			else
+				$values['object'] = "'".$conn->escapeString($object)."'";
+			// Check repeats
+			$query = 'SELECT id FROM journal WHERE ';
+			$where = '';
+			foreach($values as $field=>$value)
+			{
+				if (!empty($where))
+					$where .= ' AND ';
+				$where .= '('.$field.' = '.$value.')';
+			}																				
+			$where .= ' AND (date_added > '.(time()-self::REPEAT_TIMEOUT).')';
+			$rs = $conn->query($query.$where);
+			$row = $rs->fetchArray();
+			if ($row !== false)
+			{
+				// Increase repeat counter
+				$query = 'UPDATE journal ';
+				$query .= 'SET repeats = repeats + 1,date_repeat = '.time().' ';
+				$query .= 'WHERE id = '.$row['id'];
+			}
+			else
+			{
+				// Insert journal entry
+				$values['id'] = 'NULL';
+				$values['date_added'] = time();
+				$fields = implode('`,`',array_keys($values));
+				$data = implode(',',array_values($values));
+				$query = 'INSERT INTO journal (`'.$fields.'`) VALUES('.$data.')';
+			}
+			// SQLite does not always honor its own busy timeout handler
+			// So, if we get busy error we simply try again until we succeed or timeout ourselves
+			$start = time();
+			$retry = true;
+			$tries = 1;
+			while($retry)
+			{
+				try {
+					$conn->exec($query);
+					$retry = false;
+				} catch (Exception $e) {
+					// If busy then ignore it until timeout has lapsed. If not, throw exception again.
+					if ($conn->lastErrorCode() != self::SQLITE_BUSY)
+						throw $e;
+					if ((time() - $start) > self::TIMEOUT)
+						throw new DatabaseException('Unable to write to database; still locked after waiting '.self::TIMEOUT.' seconds',$conn->lastErrorCode(),$query);
+					usleep(10000 * $tries); // 10ms times number of tries
+					$tries++;
+				}
 			}
 		}
 	}
@@ -245,7 +244,7 @@ function ExceptionErrorHandler($severity,$message,$filename,$line)
 	{
 		if ($severity == E_NOTICE)
 		{
-			if (defined('DEBUG'))
+			if (defined('DEBUG') && class_exists('Journal'))
 				Journal::Log(Journal::NOTICE,'Notice',$message,$filename.':'.$line);
 		}
 		else
@@ -292,6 +291,7 @@ function DumpException($exception)
 	$details .= '</p>';
 	if (defined('DEBUG'))
 		echo $details;
+	if(!class_exists('Journal')) return;
 	// Log exception
 	$object = '';
 	if (!empty($file))
