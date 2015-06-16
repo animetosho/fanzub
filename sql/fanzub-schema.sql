@@ -102,7 +102,7 @@ CREATE TABLE `postcat` (
   `post_date` int(10) unsigned NOT NULL,
   `nzb_date` int(10) unsigned NOT NULL,
   `updated` int(10) unsigned NOT NULL,
-  PRIMARY KEY `postcat` (`postid`,`catid`),
+  UNIQUE KEY `postcat` (`postid`,`catid`),
   KEY `catid` (`catid`,`post_date`),
   KEY `primarycat` (`primarycat`,`post_date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
