@@ -20,6 +20,7 @@ $config = parse_ini_file('../lib/config.ini.php',true);
 $config += parse_ini_file('../lib/usenet.ini.php',true);
 
 require_once('../lib/framework/class.standard.php');
+require_once('../lib/framework/class.cache.'.$config['cache']['type'].'.php');
 require_once('../lib/framework/class.mysql.php');
 require_once('../lib/framework/class.activerecord.php');
 require_once('../lib/framework/class.framework.php');

@@ -22,7 +22,8 @@ lib = "/home/fanzub/www.fanzub.com/lib"
 nzb = "/home/fanzub/nzb"
 
 [cache]
-status = true
+; type can be apc, memcache (hard-coded connect to localhost:11211) or null (no cache)
+type = "memcache"
 name = "Fanzub"
 
 ; */
