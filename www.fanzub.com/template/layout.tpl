@@ -37,7 +37,7 @@ function Details(id)
 
 {$footer|}
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript" src="{#config:url|assets}include/jquery.min.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 
