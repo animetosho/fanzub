@@ -233,7 +233,7 @@ class ExportRender extends PostRender
 		 * Filter
 		 */
 		if (isset($_REQUEST['filter']))
-			$this->filter = boolval($_REQUEST['filter']);
+			$this->filter = is_truish($_REQUEST['filter']);
 		/*
 		 * Format
 		 */
@@ -326,7 +326,7 @@ class ExportRender extends PostRender
 				parse_str($row['stats'],$row['stats']);
 			else
 				$row['stats'] = array();
-			$row['hidden'] = boolval($row['hidden']);
+			$row['hidden'] = is_truish($row['hidden']);
 			$result[] = $row;
 		}
 		if ($this->format == self::FORMAT_SERIAL)

@@ -288,7 +288,7 @@ class PostgreSQL
 	public function Bool($expr)
 	{
 		// PostgreSQL prefers keywords TRUE/FALSE, but for ActiveRecord we return exactly what the database would return for a BOOL field
-		return (boolval($expr) ? 't' : 'f');
+		return (is_truish($expr) ? 't' : 'f');
 	}
 
 	/**

@@ -347,7 +347,7 @@ function FixURL($url)
 	return $result;
 }
 
-function boolval($bool)
+function is_truish($bool)
 {
 	switch((string)strtolower(trim($bool)))
 	{

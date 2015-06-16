@@ -304,7 +304,7 @@ class MySQL extends mysqli
 	 */
 	public function Bool($expr)
 	{
-		return (int)boolval($expr);
+		return (int)is_truish($expr);
 	}
 	
 	/**
