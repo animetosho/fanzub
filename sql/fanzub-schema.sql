@@ -74,21 +74,6 @@ CREATE TABLE `authors` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `downloads`
---
-
-DROP TABLE IF EXISTS `downloads`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `downloads` (
-  `postid` int(10) unsigned NOT NULL,
-  `userip` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `created` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`postid`,`userip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `newsgroups`
 --
 

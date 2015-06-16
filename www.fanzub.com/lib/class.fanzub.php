@@ -788,17 +788,4 @@ class PostCat extends ActiveRecord
 		}
 	}
 }
-
-class Download extends ActiveRecord
-{
-  protected static $table = 'downloads';
-  protected static $columns = null;
-
-  public function Save()
-  {
-    if (is_null($this->_key))
-      $this->created = time();
-    parent::Save();
-  }
-}
 ?>

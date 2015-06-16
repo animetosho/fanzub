@@ -65,25 +65,6 @@ class NZBController extends Controller
     header('Content-disposition: inline; filename="'.$nzb.'"');
     // Output NZB file
     $template->Display('layout_nzb','application/x-nzb',false);
-    // Count download(s)
-    if (isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR']))
-    {
-      // We don't store actual IP, only MD5 of the IP (for privacy)
-      $ip = md5(strtolower(trim($_SERVER['REMOTE_ADDR'])));
-      foreach ($ids as $id)
-      {
-        try {
-          $download = Download::Find(array('postid' => $id,'userip' => $ip));
-          // Found = ignore (count downloads only once)
-        } catch (ActiveRecord_NotFoundException $e) {
-          // Not found = add
-          $download = new Download();
-          $download->postid = $id;
-          $download->userip = $ip;
-          $download->Save();
-        }
-      }
-    }
   }
 }
 
