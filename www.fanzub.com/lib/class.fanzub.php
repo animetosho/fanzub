@@ -32,40 +32,32 @@ $conn = new MySQL($config['db']['server'],$config['db']['database'],$config['db'
 // Cache
 $cache = new Cache();
 
-// Defines
-define('CAT_ANIME',1);
-define('CAT_DRAMA',2);
-define('CAT_MUSIC',3);
-define('CAT_RAWS',4);
-define('CAT_HENTAI',5);
-define('CAT_GAMES',6);
-define('CAT_DVD',7);
-define('CAT_HMANGA',8);
+$namecat = array('anime'  => 1,
+                 'drama'  => 2,
+                 'music'  => 3,
+                 'raws'   => 4,
+                 'hentai' => 5,
+                 'games'  => 6,
+                 'dvd'    => 7,
+                 'hmanga' => 8
+                );
 
-$groupcat = array(1 => CAT_ANIME,
-                  2 => CAT_MUSIC,
-                  3 => CAT_ANIME,
-                  4 => CAT_ANIME,
-                  5 => CAT_ANIME,
-                  6 => CAT_RAWS,
-                  7 => CAT_HENTAI,
-                  8 => CAT_GAMES,
-                  9 => CAT_DRAMA,
-                  10 => CAT_DRAMA,
-                  11 => CAT_DVD,
-                  12 => CAT_DVD,
-                  13 => CAT_MUSIC,
-									14 => CAT_HMANGA);
+$groupcat = array(1 => $namecat['anime'],
+                  2 => $namecat['music'],
+                  3 => $namecat['anime'],
+                  4 => $namecat['anime'],
+                  5 => $namecat['anime'],
+                  6 => $namecat['raws'],
+                  7 => $namecat['hentai'],
+                  8 => $namecat['games'],
+                  9 => $namecat['drama'],
+                  10 => $namecat['drama'],
+                  11 => $namecat['dvd'],
+                  12 => $namecat['dvd'],
+                  13 => $namecat['music'],
+									14 => $namecat['hmanga']);
 
-$catname = array(CAT_ANIME 	=> 'anime',
-                 CAT_DRAMA 	=> 'drama',
-                 CAT_MUSIC 	=> 'music',
-                 CAT_RAWS 	=> 'raws',
-                 CAT_HENTAI	=> 'hentai',
-                 CAT_GAMES	=> 'games',
-                 CAT_DVD 		=> 'dvd',
-								 CAT_HMANGA	=> 'hmanga');
-$namecat = array_flip($catname);
+$catname = array_flip($namecat);
 
 $goodauthors = array(  14, // Bell-chan
 										   16, // Icabod
