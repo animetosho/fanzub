@@ -32,8 +32,8 @@ else
 // Load worker class
 if (strpos($object,'.') !== false)
 	throw new Exception('Invalid worker name: '.SafeHTML($object));
-if (file_exists($config['path']['lib'].'/worker.'.$object.'.php'))
-	require_once($config['path']['lib'].'/worker.'.$object.'.php');
+if (file_exists(__DIR__.'/worker.'.$object.'.php'))
+	require_once(__DIR__.'/worker.'.$object.'.php');
 if (!class_exists($object))
 	throw new Exception('Unknown worker: '.SafeHTML($object));
 
