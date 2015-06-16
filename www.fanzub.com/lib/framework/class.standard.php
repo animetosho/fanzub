@@ -125,10 +125,6 @@ class Journal
 		$values = array();
 		$values['level'] = "'".$conn->escapeString($level)."'";
 		$values['class'] = "'".$conn->escapeString($class)."'";
-		if (isset($GLOBALS['config']['object']['session']))
-			$values['userid'] = $GLOBALS['config']['object']['session']->GetUserID();
-		else
-			$values['userid'] = 0;
 		if (isset($_SERVER['REMOTE_ADDR']))
 			$values['userip'] = "'".$conn->escapeString($_SERVER['REMOTE_ADDR'])."'";
 		else

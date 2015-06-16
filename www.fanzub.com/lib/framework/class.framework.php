@@ -363,7 +363,6 @@ abstract class Controller
 	protected static $config = null;
   protected static $conn = null;
   protected static $cache = null;
-  protected static $session = null;
 	protected $urlself = '';
 	protected $controller = '';
 	protected $action = '';
@@ -378,8 +377,6 @@ abstract class Controller
       static::$conn = $GLOBALS['conn'];
     if (is_null(static::$cache) && isset($GLOBALS['cache']))
       static::$cache = $GLOBALS['cache'];
-    if (is_null(static::$session) && isset($GLOBALS['session']))
-      static::$session = $GLOBALS['session'];
 		// Options
 		$this->urlself = $_SERVER['SCRIPT_NAME'];
 		$request = (strpos($_SERVER['REQUEST_URI'],'?') !== false ? substr($_SERVER['REQUEST_URI'],0,strpos($_SERVER['REQUEST_URI'],'?')) : $_SERVER['REQUEST_URI']);
@@ -426,7 +423,6 @@ abstract class Render
   protected static $config = null;
   protected static $conn = null;
 	protected static $cache;
-  protected static $session = null;
 	protected $values = array();
 	protected $url = null;
 	protected $colcount = 0;
@@ -439,8 +435,6 @@ abstract class Render
 	protected $order = null;
 	protected $page = 0;
 	protected $perpage = self::LIMIT_PERPAGE;
-	protected $is_member = false;
-  protected $is_staff = false;
 
   public function __construct($url)
   {
@@ -450,8 +444,6 @@ abstract class Render
       static::$conn = $GLOBALS['conn'];
     if (is_null(static::$cache) && isset($GLOBALS['cache']))
       static::$cache = $GLOBALS['cache'];
-    if (is_null(static::$session) && isset($GLOBALS['session']))
-      static::$session = $GLOBALS['session'];
     $this->url = $url;
 		$this->Init();
 	}
@@ -460,18 +452,6 @@ abstract class Render
 	
 	protected function Init()
 	{
-		/*
-		 * Session flags
-		 */
-		try {
-			if (!is_null(static::$session))
-			{
-				$this->is_member = static::$session->IsMember();
-				$this->is_staff = static::$session->IsStaff();
-			}
-		} catch (Exception $e) {
-			// Ignore errors in case session object is not defiend
-		}
 		/*
 		 * Search
 		 */

@@ -4,7 +4,6 @@ CREATE TABLE journal (
   id INTEGER NOT NULL PRIMARY KEY,
   level TEXT NOT NULL,
   class TEXT NOT NULL,
-  userid INTEGER NOT NULL DEFAULT 0,
   userip TEXT NOT NULL,
   message TEXT NOT NULL,
   details TEXT NOT NULL DEFAULT '',
