@@ -22,16 +22,5 @@
 
 {$footer|}
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script type="text/javascript">
-/* <![CDATA[ */
-
-$(document).ready(function() {
-  $("form input[name='q']").focus();
-});
-
-/* ]]> */
-</script>
-
 </body>
 </html>

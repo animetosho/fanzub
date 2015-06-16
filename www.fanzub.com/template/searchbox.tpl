@@ -1,7 +1,7 @@
 <div id="searchbox">
 	<form method="get" action="/">
 	<p>
-		<input type="text" name="q" value="{$query|escape}" />
+		<input type="text" name="q" value="{$query|escape}" {$autofocus|}/>
 		<select name="cat">
 			<option value=""{$cat[all]|}>All</option>
 			<option value="anime"{$cat[anime]|}>Anime</option>

@@ -54,7 +54,10 @@ class IndexController extends Controller
       $template->Display('layout');
     }
     else
+    {
+      $template->searchbox->autofocus = 'autofocus="autofocus" ';
       $template->Display('layout_splash');
+    }
   }
   
   protected function Details($id)
