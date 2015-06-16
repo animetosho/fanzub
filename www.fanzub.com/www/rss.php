@@ -29,7 +29,7 @@ class RSSController extends Controller
       $template->title = 'All';
     $template->title .= ' :: ';
     // RSS
-    $template->rss = 'http://'.static::$config['url']['domain'].static::$config['url']['rss'];
+    $template->rss = static::$config['url']['rss'];
     if (count($render->link) > 0)
       $template->rss .= '?'.http_build_query($render->link,'','&amp;');
     // Result

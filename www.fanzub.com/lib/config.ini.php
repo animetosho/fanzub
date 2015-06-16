@@ -8,11 +8,10 @@ username = "fanzub"
 password = "DATABASE_PASSWORD"
 
 [url]
-domain = "fanzub.com"
-base = "/"
-nzb = "/nzb"
-rss = "/rss"
-help = "/help"
+base = "http://fanzub.com/"
+assets = "http://fanzub.com/"
+nzb = "http://fanzub.com/nzb"
+rss = "http://fanzub.com/rss"
 
 [path]
 data = "/home/fanzub/www.fanzub.com/data"

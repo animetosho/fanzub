@@ -112,7 +112,7 @@ class PostRender extends Render
 			$catname = strtolower($GLOBALS['catname'][$row['catid']]);
 		$result .= '<td rowspan="2"><input type="checkbox" name="id['.$row['id'].']" value="'.$row['id'].'" />'
 		          .'<a href="'.static::$config['url']['base'].'?'.(!empty($search) ? 'q='.urlencode($search).'&amp;' : '').'cat='.urlencode($catname).'">'
-							.'<img src="'.static::$config['url']['base'].'images/cat/'.$catname.'.png" alt="'.($catname != 'dvd' ? ucfirst($catname) : strtoupper($catname)).'" />'
+							.'<img src="'.static::$config['url']['assets'].'images/cat/'.$catname.'.png" alt="'.($catname != 'dvd' ? ucfirst($catname) : strtoupper($catname)).'" />'
 							.'</a></td>'."\n";
 		// File
 		$result .= '<td class="file"><a type="application/x-nzb" href="'.static::$config['url']['nzb'].'/'.$row['id'].'">'.SafeHTML(Post::FilenameFilter($row['subject'])).'</a></td>'."\n";
@@ -183,7 +183,7 @@ class RSSRender extends PostRender
 		{
 			$template = new Template('rss_item');
 			$template->title = Post::FilenameFilter($row['subject']);
-			$template->link = 'http://'.static::$config['url']['domain'].static::$config['url']['nzb'].'/'.$row['id'];
+			$template->link = static::$config['url']['nzb'].'/'.$row['id'];
 			$template->vanity = '/'.rawurlencode(Post::NZBName($row['subject']));
 			$template->desc = '<i>Age</i>: '.floor((time()-$row['post_date']+1) / 86400).' days<br />';
 			$template->desc .= '<i>Size</i>: '.FormatSize($row['size'],2).'<br />';
