@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>{$title}Fanzub</title>
-		<link>http://www.fanzub.com/</link>
+		<link>{#config:url|basefull}</link>
 		<description>A Usenet Search Engine for Japanese Media</description>
 		<language>en-us</language>
 		<atom:link href="{$rss|url}" rel="self" type="application/rss+xml" />

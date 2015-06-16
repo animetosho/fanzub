@@ -11,6 +11,6 @@
 <dd>Fanzub only indexes Usenet and has no control over its content.</dd>
 
 <dt>Contact</dt>
-<dd>You may contact Fanzub through <a href="mailto:info@fanzub.com">info@fanzub.com</a>. Feedback is appreciated.</dd>
+<dd>You may contact Fanzub through <a href="mailto:{#config:url|mail}">{#config:url|mail}</a>. Feedback is appreciated.</dd>
 
 </dl>

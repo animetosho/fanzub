@@ -16,6 +16,7 @@ basefull = "http://fanzub.com/"
 assets = "/"
 nzb = "http://fanzub.com/nzb"
 rss = "http://fanzub.com/rss"
+mail = "info@fanzub.com"
 
 [path]
 data = "/home/fanzub/www.fanzub.com/data"
