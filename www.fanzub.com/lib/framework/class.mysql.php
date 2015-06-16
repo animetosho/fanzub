@@ -43,7 +43,7 @@ class MySQL extends mysqli
 		{
 			try {
 				// Rollback any transaction that isn't commited yet (ie: after a fatal error)
-				$this->Rollback();
+				$this->RollbackTransaction();
 			} catch (Exception $e) {
 				// Ignore errors
 			}
@@ -258,12 +258,12 @@ class MySQL extends mysqli
 		return $this->Execute('START TRANSACTION');
 	}
 	
-	public function Commit()
+	public function CommitTransaction()
 	{
 		return $this->Execute('COMMIT');
 	}
 	
-	public function Rollback()
+	public function RollbackTransaction()
 	{
 		return $this->Execute('ROLLBACK');
 	}

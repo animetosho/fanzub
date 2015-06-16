@@ -149,10 +149,10 @@ class Posts extends Cron
         // Update all posts in one go (in case one post was updated more than once)
         $posts = Post::Update();
         // Commit transaction
-        static::$conn->Commit();
+        static::$conn->CommitTransaction();
       } catch (Exception $e) {
         // Rollback on error
-        static::$conn->Rollback();
+        static::$conn->RollbackTransaction();
         throw $e;
       }
       echo '<b>'.$new.'</b> posts added, <b>'.$found.'</b> posts updated, <b>'.$ignored.'</b> posts ignored (<b>'.number_format(GetMicroTime()-$start,2).'</b> seconds)</p>';
