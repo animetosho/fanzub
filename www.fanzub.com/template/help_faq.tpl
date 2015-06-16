@@ -8,7 +8,7 @@
 <dd><a href="https://en.wikipedia.org/wiki/Usenet">Usenet</a> is a worldwide distributed Internet discussion system. Think of it as a network of forum servers, where if somebody posts a message to a newsgroup on one server it's automatically distributed to all other servers in the network. While Usenet was originally intended for text discussions, binary files now make up the bulk of Usenet traffic.</dd>
 
 <dt>How do I download?</dt>
-<dd>Fanzub does not host any downloads, only NZB files. To download you will need Usenet client capable of handling NZB files and access to a Usenet server. See the <a href="/help/guide">Usenet Guide</a> for more information.</dd>
+<dd>Fanzub does not host any downloads, only NZB files. To download you will need Usenet client capable of handling NZB files and access to a Usenet server. See the <a href="{#config:url|base}help/guide">Usenet Guide</a> for more information.</dd>
 
 <dt>What are NZB files?</dt>
 <dd>NZB files is a file format originally developed by the now invite-only website Newzbin.com. NZB files make it easier to find downloads on Usenet, and from the viewpoint of the downloader NZB files function much like torrent files do for BitTorrent.</dd>
@@ -127,12 +127,12 @@
 </dd>
 
 <dt>Is it possible for RSS feeds to return more than 50 items?</dt>
-<dd>Yes, just add the <b>max</b> parameter to the URL, like this: <a target="_blank" href="http://fanzub.com/rss?cat=anime&amp;max=200">fanzub.com/rss?cat=anime&amp;max=200</a></dd>
+<dd>Yes, just add the <b>max</b> parameter to the URL, like this: <a target="_blank" href="{#config:url|rss}?cat=anime&amp;max=200">{#config:url|rss}?cat=anime&amp;max=200</a></dd>
 
 <dt>Is there something like an API to retrieve infromation from the Fanzub database?</dt>
 <dd>
 	<p>
-		Yes, just replace the <i>&quot;rss&quot;</i> bit from the RSS URL with <i>&quot;export&quot;</i>, like this: <a target="_blank" href="http://fanzub.com/export?cat=anime">fanzub.com/export?cat=anime</a>.
+		Yes, just replace the <i>&quot;rss&quot;</i> bit from the RSS URL with <i>&quot;export&quot;</i>, like this: <a target="_blank" href="{#config:url|basefull}export?cat=anime">{#config:url|basefull}export?cat=anime</a>.
 		The <i>&quot;export&quot;</i> feed accepts the same arguments as the RSS feed (including the <i>max</i> parameter).
 		By default the <i>&quot;export&quot;</i> feed will return an <a target="_blank" href="https://en.wikipedia.org/wiki/Json">JSON</a> encoded array of posts. You can specify the <b>format=<i>serial</i></b> parameter to have the feed return a <a target="_blank" href="http://php.net/unserialize">PHP</a> serialized array instead.
 	</p>
@@ -141,8 +141,5 @@
 		When you use this parameter the <i>&quot;category&quot;</i> field will be <i>NULL</i> for those posts that are not (yet) listed on the site. If a post is not listed because it is considered spam, the <i>&quot;hidden&quot;</i> flag will be set to <i>true</i>.
 	</p>
 </dd>
-
-<dt>Can I access the site using SSL (HTTPS)?</dt>
-<dd>Yes, just acccess the site using <a href="https://fanzub.com/">https://fanzub.com</a>.</dd>
 
 </dl>

@@ -4,8 +4,8 @@
 <title>{$title}Fanzub</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 {$meta|}
-<link rel="stylesheet" type="text/css" href="/include/fanzub.css?20111028" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="stylesheet" type="text/css" href="{#config:url|assets}include/fanzub.css?20111028" />
+<link rel="shortcut icon" href="{#config:url|assets}favicon.ico" type="image/vnd.microsoft.icon" />
 <link rel="alternate" type="application/rss+xml" title="{$title}Fanzub RSS" href="{$rss}" />
 </head>
 <body>
@@ -16,7 +16,7 @@
 function Details(id)
 {
   if ($("#post"+id).text() == "")
-    $("#post"+id).click(function() { $(this).slideToggle("slow"); }).load("/?details="+id,function() { $(this).slideDown("slow"); });
+    $("#post"+id).click(function() { $(this).slideToggle("slow"); }).load("{#config:url|base}?details="+id,function() { $(this).slideDown("slow"); });
   else
     $("#post"+id).slideToggle("slow");
 }
@@ -27,7 +27,7 @@ function Details(id)
 <div id="container">
   <div id="header">
     <div id="logo">
-      <a href="/"><img src="/images/logo_small.png" width="125" height="35" alt="Fanzub" /></a>
+      <a href="{#config:url|base}"><img src="{#config:url|assets}images/logo_small.png" width="125" height="35" alt="Fanzub" /></a>
     </div>
     {$menu}
     {$searchbox}

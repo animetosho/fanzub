@@ -3,8 +3,8 @@
 <head>
 <title>Fanzub :: A Usenet Search Engine for Japanese Media</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="/include/fanzub.css?20111028" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="stylesheet" type="text/css" href="{#config:url|assets}include/fanzub.css?20111028" />
+<link rel="shortcut icon" href="{#config:url|assets}favicon.ico" type="image/vnd.microsoft.icon" />
 <link rel="alternate" type="application/rss+xml" title="Fanzub RSS" href="{$rss}" />
 </head>
 <body>
@@ -12,7 +12,7 @@
 <div id="container">
   <div id="splash">
     <div id="logo">
-      <a href="/"><img src="/images/logo.png" width="320" height="90" alt="Fanzub" /></a><br />
+      <a href="{#config:url|base}"><img src="{#config:url|assets}images/logo.png" width="320" height="90" alt="Fanzub" /></a><br />
       <small>A Usenet Search Engine for Japanese Media</small>
     </div>
     {$searchbox}

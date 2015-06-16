@@ -44,7 +44,7 @@ class IndexController extends Controller
       // RSS
       if (count($render->link) > 0)
         $template->rss .= '?'.http_build_query($render->link,'','&amp;');
-      $template->searchbox->rss = '<a href="'.$template->rss.'" title="RSS"><img src="'.static::$config['url']['base'].'images/rss.png" width="14" height="14" alt="RSS" /></a>';
+      $template->searchbox->rss = '<a href="'.$template->rss.'" title="RSS"><img src="'.static::$config['url']['assets'].'images/rss.png" width="14" height="14" alt="RSS" /></a>';
       // Result
       $template->body = $render->View();
       // Stop search engines (Google) from complaining a page with no results should return 404

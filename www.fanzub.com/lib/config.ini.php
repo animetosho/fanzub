@@ -8,8 +8,12 @@ username = "fanzub"
 password = "DATABASE_PASSWORD"
 
 [url]
-base = "http://fanzub.com/"
-assets = "http://fanzub.com/"
+; please don't use special HTML/JS characters in the URL, as I'm too lazy to escape them everywhere...
+;base = "http://fanzub.com/"
+base = "/"
+basefull = "http://fanzub.com/"
+;assets = "http://fanzub.com/"
+assets = "/"
 nzb = "http://fanzub.com/nzb"
 rss = "http://fanzub.com/rss"
 

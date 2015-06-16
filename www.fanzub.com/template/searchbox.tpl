@@ -1,5 +1,5 @@
 <div id="searchbox">
-	<form method="get" action="/">
+	<form method="get" action="{#config:url|base}">
 	<p>
 		<input type="text" name="q" value="{$query|escape}" {$autofocus|}/>
 		<select name="cat">
