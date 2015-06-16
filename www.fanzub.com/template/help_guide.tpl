@@ -2,7 +2,7 @@
 <dl>
 	
 <dt>What is Usenet?</dt>
-<dd><a href="http://en.wikipedia.org/wiki/Usenet">Usenet</a> is a worldwide distributed Internet discussion system. While originally designed for text discussions, binary files now make up the bulk of the traffic. Fanzub specializes in indexing the anime &amp; Japanese media related newsgroups and makes these posts available through so-called &quot;NZB&quot; files, which from a downloader's perspective work much like torrent files do for BitTorrent.</dd>
+<dd><a href="https://en.wikipedia.org/wiki/Usenet">Usenet</a> is a worldwide distributed Internet discussion system. While originally designed for text discussions, binary files now make up the bulk of the traffic. Fanzub specializes in indexing the anime &amp; Japanese media related newsgroups and makes these posts available through so-called &quot;NZB&quot; files, which from a downloader's perspective work much like torrent files do for BitTorrent.</dd>
 
 <dt>What are the advantages of Usenet?</dt>
 <dd>

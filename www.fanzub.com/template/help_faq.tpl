@@ -5,7 +5,7 @@
 <dd>Fanzub is a Usenet search engine for anime &amp; Japanese media related newsgroups.</dd>
 
 <dt>What is Usenet?</dt>
-<dd><a href="http://en.wikipedia.org/wiki/Usenet">Usenet</a> is a worldwide distributed Internet discussion system. Think of it as a network of forum servers, where if somebody posts a message to a newsgroup on one server it's automatically distributed to all other servers in the network. While Usenet was originally intended for text discussions, binary files now make up the bulk of Usenet traffic.</dd>
+<dd><a href="https://en.wikipedia.org/wiki/Usenet">Usenet</a> is a worldwide distributed Internet discussion system. Think of it as a network of forum servers, where if somebody posts a message to a newsgroup on one server it's automatically distributed to all other servers in the network. While Usenet was originally intended for text discussions, binary files now make up the bulk of Usenet traffic.</dd>
 
 <dt>How do I download?</dt>
 <dd>Fanzub does not host any downloads, only NZB files. To download you will need Usenet client capable of handling NZB files and access to a Usenet server. See the <a href="/help/guide">Usenet Guide</a> for more information.</dd>
@@ -134,7 +134,7 @@
 	<p>
 		Yes, just replace the <i>&quot;rss&quot;</i> bit from the RSS URL with <i>&quot;export&quot;</i>, like this: <a target="_blank" href="http://fanzub.com/export?cat=anime">fanzub.com/export?cat=anime</a>.
 		The <i>&quot;export&quot;</i> feed accepts the same arguments as the RSS feed (including the <i>max</i> parameter).
-		By default the <i>&quot;export&quot;</i> feed will return an <a target="_blank" href="http://en.wikipedia.org/wiki/Json">JSON</a> encoded array of posts. You can specify the <b>format=<i>serial</i></b> parameter to have the feed return a <a target="_blank" href="http://php.net/unserialize">PHP</a> serialized array instead.
+		By default the <i>&quot;export&quot;</i> feed will return an <a target="_blank" href="https://en.wikipedia.org/wiki/Json">JSON</a> encoded array of posts. You can specify the <b>format=<i>serial</i></b> parameter to have the feed return a <a target="_blank" href="http://php.net/unserialize">PHP</a> serialized array instead.
 	</p>
 	<p>
 		Some posts are ommitted from the list of posts by default because they're either considered spam or are presumed to be still being uploaded. In order to retrieve the whole list of detected posts (including those not visible on the site) add the <b>filter=<i>0</i></b> parameter.
