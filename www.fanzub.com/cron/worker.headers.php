@@ -17,7 +17,6 @@ class Headers extends Cron
   
   protected $server = null;
   protected $nntp = null;
-  protected $newsgroups = array();
   protected $headers = array();
   protected $authors = array();
   protected $first = 0;
@@ -37,27 +36,23 @@ class Headers extends Cron
     $this->server = (int)$id;
     if (!isset(static::$config['servers']['host'][$this->server]))
       throw new ErrorException('Server not defined in configuration');
-    // Cache groups
-    $this->newsgroups = array();
-    $groups = Newsgroup::FindAll();
-    if (!is_array($groups))
-      $groups = array($groups);
-    foreach ($groups as $group)
-      $this->newsgroups[$group->id] = $group->name;
+    // Group lookup cache
+    $grouplookup = array();
+    foreach ($GLOBALS['newsgroups'] as $group_id => $group)
+      $grouplookup[$group[1]] = $group_id;
     // Connect to server
     $this->Connect();
     // Get groups by server
     $servergroups = ServerGroup::FindByServerID($this->server);
     if (!is_array($servergroups))
       $servergroups = array($servergroups);
-    // Reverse mapping
-    $grouplookup = array_flip($this->newsgroups);
     // Loop through groups
     foreach ($servergroups as $servergroup)
     {
       // Get group
-      echo '<p>Getting new headers for <b>'.$this->newsgroups[$servergroup->groupid].'</b>: ';
-      $this->nntp->Group($this->newsgroups[$servergroup->groupid]);
+      $ng = $GLOBALS['newsgroups'][$servergroup->groupid][1];
+      echo '<p>Getting new headers for <b>'.$ng.'</b>: ';
+      $this->nntp->Group($ng);
       // Get range
       if (!$this->Range($servergroup->last))
       {

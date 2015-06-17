@@ -73,17 +73,6 @@ class IndexController extends Controller
     } catch (ActiveRecord_NotFoundException $e) {
       die('<b>Error</b>: post '.SafeHTML($this->params[0]).' does not exist.');
     }
-    // Cache newsgroups
-    try {
-      $newsgroups = array();
-      $groups = Newsgroup::FindAll();
-      if (!is_array($groups))
-        $groups = array($groups);
-      foreach ($groups as $group)
-        $newsgroups[$group->id] = $group->name;
-    } catch (ActiveRecord_NotFoundException $e) {
-      die('<b>Error</b>: database problem - no newsgroups defined.');
-    }
     $result .= '<table cellspacing="0"><tr><th>Poster</th><th>Newsgroups</th></tr>'."\n";
     $poster = trim(preg_replace('/\s+/',' ',str_replace(array('@','(',')','[',']',',','.','!','-','#','^','$','+','/','\\'),' ',$author->name)));
     $result .= '<tr><td class="split"><a href="'.static::$config['url']['base'].'?'.http_build_query(array('q'=>'@poster '.$poster),'','&amp;').'">'.SafeHTML($author->name).'</a></td><td class="split">';
@@ -91,10 +80,10 @@ class IndexController extends Controller
       $list = array();
       $groups = PostGroup::FindByPostID($post->id);
       if (!is_array($groups))
-        $list[] = $newsgroups[$groups->groupid];
+        $list[] = $GLOBALS['newsgroups'][$groups->groupid][1];
       else
         foreach ($groups as $group)
-          $list[] = $newsgroups[$group->groupid];
+          $list[] = $GLOBALS['newsgroups'][$group->groupid][1];
       $result .= implode('<br />',$list);
     } catch (ActiveRecord_NotFoundException $e) {
       die('<b>Error</b>: database problem - post is not associated with any newsgroup.');

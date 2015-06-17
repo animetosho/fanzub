@@ -42,20 +42,21 @@ $namecat = array('anime'  => 1,
                  'hmanga' => 8
                 );
 
-$groupcat = array(1 => $namecat['anime'],
-                  2 => $namecat['music'],
-                  3 => $namecat['anime'],
-                  4 => $namecat['anime'],
-                  5 => $namecat['anime'],
-                  6 => $namecat['raws'],
-                  7 => $namecat['hentai'],
-                  8 => $namecat['games'],
-                  9 => $namecat['drama'],
-                  10 => $namecat['drama'],
-                  11 => $namecat['dvd'],
-                  12 => $namecat['dvd'],
-                  13 => $namecat['music'],
-									14 => $namecat['hmanga']);
+$newsgroups = array(1 => array($namecat['anime'],  'alt.binaries.multimedia.anime'),
+                    2 => array($namecat['music'],  'alt.binaries.sounds.anime'),
+                    3 => array($namecat['anime'],  'alt.binaries.anime'),
+                    4 => array($namecat['anime'],  'alt.binaries.multimedia.anime.repost'),
+                    5 => array($namecat['anime'],  'alt.binaries.multimedia.anime.highspeed'),
+                    6 => array($namecat['raws'],   'alt.binaries.multimedia.anime.raws'),
+                    7 => array($namecat['hentai'], 'alt.binaries.multimedia.erotica.anime'),
+                    8 => array($namecat['games'],  'alt.binaries.games.anime'),
+                    9 => array($namecat['drama'],  'alt.binaries.multimedia.japanese'),
+                   10 => array($namecat['drama'],  'alt.binaries.multimedia.japanese.repost'),
+                   11 => array($namecat['dvd'],    'alt.binaries.dvd.anime'),
+                   12 => array($namecat['dvd'],    'alt.binaries.dvd.anime.repost'),
+                   13 => array($namecat['music'],  'alt.binaries.sounds.jpop'),
+                   14 => array($namecat['hmanga'], 'alt.binaries.pictures.erotica.anime')
+                  );
 
 $catname = array_flip($namecat);
 
@@ -93,27 +94,6 @@ $goodauthors = array(  14, // Bell-chan
 										 3705, // Otaku
 										 3931 // WG
 										 );
-
-class Newsgroup extends ActiveRecord
-{
-  protected static $table = 'newsgroups';
-  protected static $columns = null;
-	protected static $lookup = array();
-	
-	public static function Lookup($id)
-	{
-		if (!isset(static::$lookup[(int)$id]))
-		{
-			$rs = static::$conn->Execute('SELECT * FROM "'.static::$table.'" WHERE "id" = ? ',$id);
-			$row = $rs->Fetch();
-			if ($row)
-				static::$lookup[$row['id']] = $row['name'];
-			else
-				return null; // Not found
-		}
-		return static::$lookup[(int)$id];
-	}
-}
 
 class Author extends ActiveRecord
 {
@@ -640,7 +620,7 @@ class Post extends ActiveRecord
 		$groups = '';
 		$rs = static::$conn->Execute('SELECT "groupid" FROM "postgroup" WHERE "postid" = ? ',$postid);
 		while ($row = $rs->Fetch())
-			$groups .= "\t\t\t<group>".Newsgroup::Lookup($row['groupid'])."</group>\n";
+			$groups .= "\t\t\t<group>".$GLOBALS['newsgroups'][$row['groupid']][1]."</group>\n";
 		// Get files
 		$rs = static::$conn->Execute('SELECT "subject","authorid","parts","post_date" FROM "articles" WHERE "postid" = ? ',$postid);
 		while ($row = $rs->Fetch())
@@ -735,7 +715,7 @@ class PostCat extends ActiveRecord
 					$groups = explode(',',$row['groups']);
 					$cats = array();
 					foreach ($groups as $group)
-						$cats[$GLOBALS['groupcat'][$group]] = $GLOBALS['groupcat'][$group];
+						$cats[$GLOBALS['newsgroups'][$group][0]] = $GLOBALS['newsgroups'][$group][0];
 					arsort($cats); // Latter categories are more important; Anime = least specific category
 					$set_primary = true; // Last category (first in the array) will be set to primary
 					foreach ($cats as $cat)
