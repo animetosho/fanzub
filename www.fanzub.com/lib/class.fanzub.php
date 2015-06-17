@@ -41,24 +41,23 @@ $namecat = array('anime'  => 1,
                  'dvd'    => 7,
                  'hmanga' => 8
                 );
-
-$newsgroups = array(1 => array($namecat['anime'],  'alt.binaries.multimedia.anime'),
-                    2 => array($namecat['music'],  'alt.binaries.sounds.anime'),
-                    3 => array($namecat['anime'],  'alt.binaries.anime'),
-                    4 => array($namecat['anime'],  'alt.binaries.multimedia.anime.repost'),
-                    5 => array($namecat['anime'],  'alt.binaries.multimedia.anime.highspeed'),
-                    6 => array($namecat['raws'],   'alt.binaries.multimedia.anime.raws'),
-                    7 => array($namecat['hentai'], 'alt.binaries.multimedia.erotica.anime'),
-                    8 => array($namecat['games'],  'alt.binaries.games.anime'),
-                    9 => array($namecat['drama'],  'alt.binaries.multimedia.japanese'),
-                   10 => array($namecat['drama'],  'alt.binaries.multimedia.japanese.repost'),
-                   11 => array($namecat['dvd'],    'alt.binaries.dvd.anime'),
-                   12 => array($namecat['dvd'],    'alt.binaries.dvd.anime.repost'),
-                   13 => array($namecat['music'],  'alt.binaries.sounds.jpop'),
-                   14 => array($namecat['hmanga'], 'alt.binaries.pictures.erotica.anime')
-                  );
-
 $catname = array_flip($namecat);
+
+$newsgroups = array(1 => array('anime',  'alt.binaries.multimedia.anime'),
+                    2 => array('music',  'alt.binaries.sounds.anime'),
+                    3 => array('anime',  'alt.binaries.anime'),
+                    4 => array('anime',  'alt.binaries.multimedia.anime.repost'),
+                    5 => array('anime',  'alt.binaries.multimedia.anime.highspeed'),
+                    6 => array('raws',   'alt.binaries.multimedia.anime.raws'),
+                    7 => array('hentai', 'alt.binaries.multimedia.erotica.anime'),
+                    8 => array('games',  'alt.binaries.games.anime'),
+                    9 => array('drama',  'alt.binaries.multimedia.japanese'),
+                   10 => array('drama',  'alt.binaries.multimedia.japanese.repost'),
+                   11 => array('dvd',    'alt.binaries.dvd.anime'),
+                   12 => array('dvd',    'alt.binaries.dvd.anime.repost'),
+                   13 => array('music',  'alt.binaries.sounds.jpop'),
+                   14 => array('hmanga', 'alt.binaries.pictures.erotica.anime')
+                  );
 
 $goodauthors = array(  14, // Bell-chan
 										   16, // Icabod
@@ -715,7 +714,10 @@ class PostCat extends ActiveRecord
 					$groups = explode(',',$row['groups']);
 					$cats = array();
 					foreach ($groups as $group)
-						$cats[$GLOBALS['newsgroups'][$group][0]] = $GLOBALS['newsgroups'][$group][0];
+					{
+						$cat = $GLOBALS['namecat'][$GLOBALS['newsgroups'][$group][0]];
+						$cats[$cat] = $cat;
+					}
 					arsort($cats); // Latter categories are more important; Anime = least specific category
 					$set_primary = true; // Last category (first in the array) will be set to primary
 					foreach ($cats as $cat)
