@@ -542,7 +542,7 @@ abstract class Render
 	protected function QuerySearch($index,$sort,$order)
 	{
 		$sphinx = new SphinxClient();
-		$sphinx->SetServer(static::$config['sphinx']['host'],static::$config['sphinx']['port']);
+		$sphinx->SetServer(static::$config['sphinx']['host'],(int)static::$config['sphinx']['port']);
 		$sphinx->SetConnectTimeout(1);
 		$sphinx->SetArrayResult(true);
 		$sphinx->SetLimits(0,static::LIMIT_SEARCH);
