@@ -1,7 +1,9 @@
 #!/bin/sh
 
-cd /home/fanzub/www.fanzub.com/www/
+dir=`dirname "$0"`
+logdir="$dir/../www/logs"
+cd $dir
 
-/usr/bin/nice -19 /usr/bin/php -f cron.php headers $1  > /home/fanzub/www.fanzub.com/www/logs/headers-$1.html
-/usr/bin/nice -19 /usr/bin/php -f cron.php posts > /home/fanzub/www.fanzub.com/www/logs/posts.html
-/usr/bin/nice -19 /usr/bin/php -f cron.php nzb > /home/fanzub/www.fanzub.com/www/logs/nzb.html
+/usr/bin/nice -19 /usr/bin/php -f cron.php headers $1 > $logdir/headers-$1.html
+/usr/bin/nice -19 /usr/bin/php -f cron.php posts > $logdir/posts.html
+/usr/bin/nice -19 /usr/bin/php -f cron.php nzb > $logdir/nzb.html
